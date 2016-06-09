@@ -144,8 +144,7 @@
 		$options = "Select User from drop down <select name='theUserID'>";
 		$users = getusers($db);
 		while ($aRow = $users->fetch() ){
-			$thisRow = $aRow['userID'];	
-			$thisRow = $aRow['userID'];	
+			$thisRow = $aRow['userID'] . " " . $aRow['firstName'] . " ". $aRow['lastName'];	
 			$options .= "<option value=$thisRow>$thisRow</option>";				
 		}
 		$options .= "</select>";

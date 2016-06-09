@@ -34,12 +34,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         /*header ("Location:searchProductsA.php")*/ ;
 		$user = getAUser($db,$theUserID);
 		displayAUser($user);
+		echo "<a href='displayUserImages.php'>Go to User Images</a><br>";
+		echo "<a href='displayUserAnnotations.php'>Go to User Annotations</a>";
     }
 }  
 ?>
 <h2>Login</h2>
 <form action="login.php" method="post">
-	<!--<input type="text" name="theUserID">-->
+	<!--<input type="text" name="theUserID"> -->
 		<?php
 			echo displaySelectUsers($db);
 		?>
