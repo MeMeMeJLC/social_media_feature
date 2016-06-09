@@ -12,16 +12,13 @@ $db->dropDatabase();
 $db->createDatabase();
 // select the database
 $db->selectDatabase();
-/*$sql = "drop table user";
+$sql = "drop table user";
 $result = $db->query($sql);
 $sql = "drop table image";
 $result = $db->query($sql);
-$sql = "drop table annotation";*/
-/*$result = $db->query($sql);
-$sql = "drop table orderline";
+$sql = "drop table annotation";
 $result = $db->query($sql);
-$sql = "drop table favourite";
-$result = $db->query($sql);*/
+
 
 /*create user table*/
 $sql = "create table user (userID int not null auto_increment, 

@@ -32,17 +32,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       // register the session variables and load the next page
         $_SESSION["theImageLocation"] = $theImageLocation ;
         /*header ("Location:searchProductsA.php")*/ ;
-		$user = addAnImage($db,$theImageLocation);
+		$image = addAnImage($db,$theImageLocation);
     }
 } 
 ?>
 <html>
+<h2>Add Image</h2>
 <form action="addImage.php" method="post">
 	<input type="text" value="ImageLocation" name="theImageLocation"><br><br>
 	<button type="submit" value="Search for user">Add image</button>
 </form>
 
-<h2>Add Image</h2>
+
 
 <br><br>
 <a href="main.php">Return to Main Page</a>

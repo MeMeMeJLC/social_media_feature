@@ -8,7 +8,6 @@ $dbName = 'image_annotator' ;
 $db = new MySQL( $host, $dbUser , $dbPass , $dbName ) ;
 $db->selectDatabase();
 
-echo "Login";
 function isValidForm ( $theUserID  ) 
 {
     $result = true;
@@ -38,10 +37,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     }
 }  
 ?>
-
+<h2>Login</h2>
 <form action="login.php" method="post">
-	<input type="text" name="theUserID">
-	<button type="submit" value="Search for user">Login User In</button>
+	<!--<input type="text" name="theUserID">-->
+		<?php
+			echo displaySelectUsers($db);
+		?>
+	<button type="submit" value="login">Log User In</button>
 </form>
 <a href="registerNewUser.php">Register new user<a>
 
