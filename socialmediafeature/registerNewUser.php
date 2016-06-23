@@ -52,7 +52,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 </form>
 
 <br /><br />
-<a href="login.php">Return To Login Form</a><br>
-<a href="main.php">Return To Main Menu</a>
+<a href="main.php">Return To Main Form</a>
 
 </html>

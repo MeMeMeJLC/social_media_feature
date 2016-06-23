@@ -5,9 +5,6 @@ session_destroy();
 ?>
 <html>
 
-<a href="notes.html">Notes page</a>
-<br /><br />
-
 <a href="build.php">Build The Database</a>
 <br /><br />
 

@@ -8,6 +8,7 @@ $dbName = 'image_annotator' ;
 $db = new MySQL( $host, $dbUser , $dbPass , $dbName ) ;
 $db->selectDatabase();
 
+echo "Login";
 function isValidForm ( $theUserID  ) 
 {
     $result = true;
@@ -31,18 +32,16 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         session_start();
       // register the session variables and load the next page
         $_SESSION["theUserID"] = $theUserID ;
-
         header ("Location:profile.php") ;
+		/*$user = getAUser($db,$theUserID);
+		displayAUser($user);*/
     }
 }  
 ?>
-<h2>Login</h2>
+
 <form action="login.php" method="post">
-	<!--<input type="text" name="theUserID"> -->
-		<?php
-			echo displaySelectUsers($db);
-		?>
-	<button type="submit" value="login">Log User In</button>
+	<input type="text" name="theUserID">
+	<button type="submit" value="Search for user">Login User In</button>
 </form>
 <a href="registerNewUser.php">Register new user<a>
 

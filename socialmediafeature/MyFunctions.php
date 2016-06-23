@@ -15,14 +15,7 @@
 	function getusers($db){
 		$sql = "select * from user";
 		$result = $db->query($sql);  
-		#echo "<br />there were " . $result->size() . " rows <br />";
-		return $result;	
-	}
-	
-	function getusersIDs($db){
-		$sql = "select userID from user";
-		$result = $db->query($sql);  
-		#echo "<br />there were " . $result->size() . " rows <br />";
+		echo "<br />there were " . $result->size() . " rows <br />";
 		return $result;	
 	}
 	
@@ -56,17 +49,6 @@
 		$sql = "select * from image where image_location='$theImageLocation'";
 		$result = $db->query($sql);
 		displayAnImage($result);
-	}
-	
-	function addAnAnnotation($db,$theAnnotationComment, $theAnnotationLocation, $theUserIDFK, $theImageIDFK){
-		$sql = "insert into annotation (annotation_comment, annotation_location, userID_fk, image_id_fk) 
-		values ('$theAnnotationComment', $theAnnotationLocation, $theUserIDFK, $theImageIDFK)";
-		$result = $db->query($sql);
-		echo "added new annotation";
-		$sql = "select * from annotation where annotation_comment='$theAnnotationComment' and 
-		annotation_location='$theAnnotationLocation'";
-		$result = $db->query($sql);
-		displayAnAnnotation($result);
 	}
 	
 	function displayusers($users){
@@ -112,21 +94,6 @@
 		echo "</table>";
 	}
 	
-	function displayAnAnnotation($annotation){
-		echo "<table border=1><tr><td>Annotation ID</td><td>Annoation Comment</td>
-		<td>Annotation Location</td><td>User ID</td><td>Image ID</td></tr>";
-		while ( $aRow =  $annotation->fetch() )
-		{
-			$outputLine = "<tr><td>$aRow[annotation_id]</td>";
-			$outputLine .= "<td>$aRow[annotation_comment]</td>";
-			$outputLine .= "<td>$aRow[annotation_location]</td>";
-			$outputLine .= "<td>$aRow[userID_fk]</td>";
-			$outputLine .= "<td>$aRow[image_id_fk]</td>";
-			echo $outputLine;
-		}
-		echo "</table>";
-	}
-	
 	function displayAnnotations($annotations){
 		echo "<table border=1><tr><td>Annotation ID</td> <td>Annotation Comment</td> <td>Annotation Location</td> <td>User ID</td> <td>Image ID</td></tr>";
 		while ( $aRow =  $annotations->fetch() )
@@ -139,18 +106,6 @@
 			echo $outputLine;
 		}
 		echo "</table>";
-	}
-	
-	function displaySelectUsers($db){
-		$options = "Select User from drop down <select name='theUserID'>";
-		$users = getusers($db);
-		while ($aRow = $users->fetch() ){
-			$thisRow = $aRow['userID'] . " " . $aRow['firstName'] . " ". $aRow['lastName'];	
-			$options .= "<option value=$thisRow>$thisRow</option>";				
-		}
-		$options .= "</select>";
-		return $options;
-
 	}
 
 
