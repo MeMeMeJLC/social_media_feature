@@ -20,6 +20,9 @@ function isValidForm ( $theFirstName, $theLastName  )
 return $result;
 }
 
+//validate password
+$thePassword = filter_input(INPUT_POST, 'thePassword')
+
 if($_SERVER['REQUEST_METHOD'] == "POST")
 {
     // grab the variables from the form

@@ -32,9 +32,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         session_start();
       // register the session variables and load the next page
         $_SESSION["theUserID"] = $theUserID ;
-        /*header ("Location:searchProductsA.php")*/ ;
-		$user = getAUser($db,$theUserID);
-		displayAUser($user);
+        header ("Location:profile.php") ;
+		/*$user = getAUser($db,$theUserID);
+		displayAUser($user);*/
     }
 }  
 ?>
