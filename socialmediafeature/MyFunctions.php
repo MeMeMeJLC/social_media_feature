@@ -43,7 +43,7 @@
 	}
 	
 	function addAnImage($db, $theImageLocation){
-		$sql = "insert into image (image_location) values ($theImageLocation)";
+		$sql = "insert into image (image_location) values ('$theImageLocation')";
 		$result = $db->query($sql);
 		echo "added new image";
 		$sql = "select * from image where image_location='$theImageLocation'";
@@ -83,11 +83,12 @@
 	}
 	
 	function displayImages($images){
-		echo "<table border=1><tr><td>Image ID</td><td>Image Location</td></tr>";
+		echo "<table border=1><tr><td>Image ID</td><td>Image Location</td><td>image</td></tr>";
 		while ( $aRow =  $images->fetch() )
 		{
 			$outputLine = "<tr><td>$aRow[image_id]</td>";
 			$outputLine .= "<td>$aRow[image_location]</td>";
+			$outputLine .= "<td><img src='resources/images/$aRow[image_location]'</td>";
 			echo $outputLine;
 		}
 		echo "</table>";

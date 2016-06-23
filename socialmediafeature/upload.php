@@ -1,4 +1,13 @@
 <?php
+require_once("MyFunctions.php");
+include_once "MYSQLDB.php";
+$host = 'localhost' ;
+$dbUser = 'root' ;
+$dbPass = '' ;
+$dbName = 'image_annotator' ;
+$db = new MySQL( $host, $dbUser , $dbPass , $dbName ) ;
+$db->selectDatabase();
+
 $target_dir = "resources/images/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -9,6 +18,7 @@ if(isset($_POST["submit"])) {
     if($check !== false) {
         echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
+		$user = addAnImage($db,basename($_FILES["fileToUpload"]["name"]));
 		echo '<img src="'.$target_file.'" /><br />';
     } else {
         echo "File is not an image.";
@@ -47,3 +57,9 @@ if ($uploadOk == 0) {
     }
 }
 ?>
+<html>
+<body>
+<br><br>
+<a href="profile.php">Return To Profile</a>
+</body>
+</html>
