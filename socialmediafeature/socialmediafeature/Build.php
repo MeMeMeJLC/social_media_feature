@@ -51,11 +51,11 @@ $sql  = "insert into user(firstname, lastName) values ('Bill', 'Hicks')";
 $result = $db->query($sql);
 
 /*insert image test data*/
-$sql = "insert into image(image_location) values ('105.png')";
+$sql = "insert into image(image_location) values ('105')";
 $result = $db->query($sql);
-$sql = "insert into image(image_location) values ('118.png')";
+$sql = "insert into image(image_location) values ('118')";
 $result = $db->query($sql);
-$sql = "insert into image(image_location) values ('120.gif')";
+$sql = "insert into image(image_location) values ('118')";
 $result = $db->query($sql);
 
 /*insert annotation test data*/

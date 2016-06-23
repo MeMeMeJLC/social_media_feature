@@ -15,7 +15,7 @@
 	function getusers($db){
 		$sql = "select * from user";
 		$result = $db->query($sql);  
-		#echo "<br />there were " . $result->size() . " rows <br />";
+		echo "<br />there were " . $result->size() . " rows <br />";
 		return $result;	
 	}
 	
@@ -50,7 +50,7 @@
 	}
 	
 	function addAnImage($db, $theImageLocation){
-		$sql = "insert into image (image_location) values ('$theImageLocation')";
+		$sql = "insert into image (image_location) values ($theImageLocation)";
 		$result = $db->query($sql);
 		echo "added new image";
 		$sql = "select * from image where image_location='$theImageLocation'";
@@ -101,12 +101,11 @@
 	}
 	
 	function displayImages($images){
-		echo "<table border=1><tr><td>Image ID</td><td>Image Location</td><td>image</td></tr>";
+		echo "<table border=1><tr><td>Image ID</td><td>Image Location</td></tr>";
 		while ( $aRow =  $images->fetch() )
 		{
 			$outputLine = "<tr><td>$aRow[image_id]</td>";
 			$outputLine .= "<td>$aRow[image_location]</td>";
-			$outputLine .= "<td><img src='resources/images/$aRow[image_location]'</td>";
 			echo $outputLine;
 		}
 		echo "</table>";
@@ -142,14 +141,14 @@
 	}
 	
 	function displaySelectUsers($db){
-		$options = "Select User from drop down <select name='theUserID'>";
+		$options = "<select>";
 		$users = getusers($db);
 		while ($aRow = $users->fetch() ){
-			$thisRow = $aRow['userID'] . " " . $aRow['firstName'] . " ". $aRow['lastName'];	
+			$thisRow = $aRow['userID'];	
+			$thisRow = $aRow['userID'];	
 			$options .= "<option value=$thisRow>$thisRow</option>";				
 		}
 		$options .= "</select>";
-		return $options;
 
 	}
 
