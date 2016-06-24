@@ -58,6 +58,15 @@
 		displayAnImage($result);
 	}
 	
+	function addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocation){
+		$sql = "insert into annotation (annotation_comment, annotation_location, userID_fk, image_id_fk) values ('$theComment', $theAnnotationLocation, $theUserID, $theImageID)";
+		$result = $db->query($sql);
+		echo "added new comment";
+		$sql = "select * from annotation where image_id_fk='$theImageID'";
+		$result = $db->query($sql);
+		displayAnnotations($result);
+	}
+	
 	function displayusers($users){
 		echo "<table border=1><tr><td>user ID</td><td>First Name</td><td>Last Name</td></tr>";
 		while ( $aRow =  $users->fetch() )
@@ -115,5 +124,6 @@
 		}
 		echo "</table>";
 	}
+	
 
 
