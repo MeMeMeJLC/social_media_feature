@@ -22,8 +22,9 @@ $images = getImages($db);
 displayImages($images);
 
 if(isset($_POST["image"])){
-	$_SESSION['imageID'] = $_POST["image"];
-	echo $_SESSION['imageID'];
+	$_SESSION['theImageID'] = $_POST["image"];
+	header("Location:annotate.php");
+	//echo $_SESSION['imageID'];
 }
 
 ?>

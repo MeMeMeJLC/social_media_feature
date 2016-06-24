@@ -6,7 +6,7 @@
 	}
 	
 	function getAUser($db, $theUserID){
-		$sql = "select * from user where userID=$theUserID";
+		$sql = "select * from user where userID='$theUserID'";
 		$result = $db->query($sql); 
 		echo "<br />there were ". $result->size() ."rows <br />";
 		return $result;	
@@ -16,6 +16,13 @@
 		$sql = "select * from user";
 		$result = $db->query($sql);  
 		echo "<br />there were " . $result->size() . " rows <br />";
+		return $result;	
+	}
+
+	function getAnImage($db, $theImageID){
+		$sql = "select * from image where image_ID=$theImageID";
+		$result = $db->query($sql); 
+		echo "<br />there were ". $result->size() ."rows <br />";
 		return $result;	
 	}
 	
@@ -75,11 +82,8 @@
 	
 	function displayAnImage(
 	$image){
-		echo "<table border=1><tr><td>image id</td><td>image location</td></tr>";
 		$aRow = $image->fetch();
-		$outputLine = "<tr><td>$aRow[image_id]</td>";
-		$outputLine .= "<td>$aRow[image_location]</td></tr>";
-		echo $outputLine."</table><br>";
+		echo "<image src='resources/images/$aRow[image_location]'></image>";
 	}
 	
 	function displayImages($images){
