@@ -13,12 +13,12 @@ echo "UserID = " . $_SESSION['theUserID'] . ", ImageID= " . $theImageID = $_SESS
 $theUserID = $_SESSION['theUserID'];
 $image = getAnImage($db, $theImageID);
 displayAnImage($image);
-
+getImageAnnotations($db, $theImageID);
 if(isset($_POST['comment'])){
 	$theComment = $_POST['comment'];
 	$theAnnotationLocation = $_POST['location'];
 	addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocation);
-	
+	header("Refresh:0");
 }
 
 ?>
@@ -30,6 +30,8 @@ if(isset($_POST['comment'])){
 	Add a location: <input type="text" name="location"><br>
 	<input type="submit">
 </form>
-
+<br><br>
+<a href="profile.php">Return to user profile</a>
+<a href="main.php">Return to Main Page</a>
 </body>
 </html>

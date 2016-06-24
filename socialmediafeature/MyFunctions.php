@@ -33,6 +33,12 @@
 		return $result;	
 	}
 	
+	function getImageAnnotations($db, $theImageID){
+		$sql = "select * from annotation where image_id_fk = $theImageID";
+		$result = $db->query($sql);
+		displayAnnotations($result);
+	}
+	
 	function getAnnotations($db){
 		$sql = "select * from annotation";
 		$result = $db->query($sql);
@@ -64,7 +70,7 @@
 		echo "added new comment";
 		$sql = "select * from annotation where image_id_fk='$theImageID'";
 		$result = $db->query($sql);
-		displayAnnotations($result);
+
 	}
 	
 	function displayusers($users){
