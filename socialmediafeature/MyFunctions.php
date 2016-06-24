@@ -83,12 +83,16 @@
 	}
 	
 	function displayImages($images){
-		echo "<table border=1><tr><td>Image ID</td><td>Image Location</td><td>image</td></tr>";
+		echo "<table border=1><tr><td>Image ID</td><td>Image Location</td><td>image</td><td>Annotate</td></tr>";
 		while ( $aRow =  $images->fetch() )
 		{
 			$outputLine = "<tr><td>$aRow[image_id]</td>";
 			$outputLine .= "<td>$aRow[image_location]</td>";
 			$outputLine .= "<td><img src='resources/images/$aRow[image_location]'</td>";
+			$outputLine .= "<td>
+			<form method='post' action='profile.php'>
+				<input type='submit' value='$aRow[image_id]' name='image'>
+			</form></td></tr>"; //link to image id
 			echo $outputLine;
 		}
 		echo "</table>";

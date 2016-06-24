@@ -28,11 +28,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     if ( isValidForm ( $theUserID )  )
     {
        // specify where to save the session variables
-        session_save_path("./");
+        //session_save_path("./");
         session_start();
       // register the session variables and load the next page
-        $_SESSION["theUserID"] = $theUserID ;
+        $_SESSION['theUserID'] = $theUserID ;
+		sleep(1);
         header ("Location:profile.php") ;
+		exit;
+		//echo "<br> session id ".$_SESSION['theUserID'];
 		/*$user = getAUser($db,$theUserID);
 		displayAUser($user);*/
     }

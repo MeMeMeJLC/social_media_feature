@@ -1,4 +1,11 @@
 <?php
+session_start();
+if(isset($_SESSION['theUserID'])){
+	echo "User ID is " . $_SESSION['theUserID'];
+}
+else {
+	echo "session data not set";
+}
 require_once("MyFunctions.php");
 include_once "MYSQLDB.php";
 $host = 'localhost' ;
@@ -9,10 +16,15 @@ $db = new MySQL( $host, $dbUser , $dbPass , $dbName ) ;
 $db->selectDatabase();
 
 
+
 echo "<h2>Images</h2>";
 $images = getImages($db);
 displayImages($images);
 
+if(isset($_POST["image"])){
+	$_SESSION['imageID'] = $_POST["image"];
+	echo $_SESSION['imageID'];
+}
 
 ?>
 <html>
@@ -28,7 +40,6 @@ displayImages($images);
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">
 </form>
-
 
 
 
