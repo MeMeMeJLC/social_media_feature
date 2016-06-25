@@ -22,7 +22,7 @@
 	function getAnImage($db, $theImageID){
 		$sql = "select * from image where image_ID=$theImageID";
 		$result = $db->query($sql); 
-		echo "<br />there were ". $result->size() ."rows <br />";
+
 		return $result;	
 	}
 	
@@ -70,7 +70,6 @@
 		echo "added new comment";
 		$sql = "select * from annotation where image_id_fk='$theImageID'";
 		$result = $db->query($sql);
-
 	}
 	
 	function displayusers($users){
@@ -98,8 +97,11 @@
 	function displayAnImage(
 	$image){
 		$aRow = $image->fetch();
-		echo "<image src='resources/images/$aRow[image_location]'></image>";
+		echo "<image src='resources/images/$aRow[image_location]' onclick='getAnAnnotationLocation(event)'></image>";
 	}
+	
+
+
 	
 	function displayImages($images){
 		echo "<table border=1><tr><td>Image ID</td><td>Image Location</td><td>image</td><td>Annotate</td></tr>";
@@ -130,6 +132,8 @@
 		}
 		echo "</table>";
 	}
-	
+?>	
+<html>	
 
 
+</html>
