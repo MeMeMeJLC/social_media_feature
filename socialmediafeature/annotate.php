@@ -1,9 +1,10 @@
 <html>
 <body>
 <br><br>
-	<form method='post' action='annotate.php'>
+<form method='post' action='annotate.php'>
 	Add an annotation: <input type='text' name='comment'></input><br>
-	<input type='hidden' id='annotationLocation' name='annotationLocation' value=''></input>
+	<input type='hidden' id='annotationLocationX' name='annotationLocationX' value=''></input>
+	<input type='hidden' id='annotationLocationY' name='annotationLocationY' value=''></input>
 	<input type='submit'></input>
 </form>
 
@@ -21,9 +22,7 @@
 function getAnAnnotationLocation(){
 		var x = event.clientX;
 		var y = event.clientY;
-		var coords = x + '' + y;
-		window.alert(coords);
-		document.getElementById('annotationLocation').value = coords; 
+		document.getElementById('annotationLocationX').value = x;document.getElementById('annotationLocationY').value = y;		
 	}	</script>
 <?php
 require_once("MyFunctions.php");
@@ -47,11 +46,11 @@ displayAnImage($image);
 //$theAnnotationLocation = displayAnImageToAnnotate($image);
 getImageAnnotations($db, $theImageID);
 
-if(isset($_POST['comment']) and ($_POST['annotationLocation'])){
+if(isset($_POST['comment']) and ($_POST['annotationLocationX']) and ($_POST['annotationLocationY'])){
 	$theComment = $_POST['comment'];
-	$theAnnotationLocation = $_POST['annotationLocation'];
-	echo "location " . $theAnnotationLocation;
-	addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocation);
+	$theAnnotationLocationX = " ".$_POST['annotationLocationX'];
+	$theAnnotationLocationY = " ".$_POST['annotationLocationY']." ";
+	addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocationX, $theAnnotationLocationY);
 	header("Refresh:0");
 }
 

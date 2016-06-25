@@ -39,7 +39,8 @@ $result = $db->query($sql);
 /*create annotation table*/
 $sql = "create table annotation(annotation_id int not null auto_increment,
 	annotation_comment varchar(40) not null,
-	annotation_location int (6) not null,
+	annotation_location_x int (4) not null,
+	annotation_location_y int (4) not null,
 	userID_fk int not null,
 	image_id_fk int not null,
 	primary key (annotation_id),
@@ -62,7 +63,7 @@ $sql = "insert into image(image_location) values ('120.gif')";
 $result = $db->query($sql);
 
 /*insert annotation test data*/
-$sql = "insert into annotation(annotation_comment, annotation_location, userID_fk, image_id_fk) values ('this is comment 1', 111111, 1, 1)";
+$sql = "insert into annotation(annotation_comment, annotation_location_x, annotation_location_y, userID_fk, image_id_fk) values ('this is comment 1', 111, 222, 1, 1)";
 $result = $db->query($sql);
 
 ?>

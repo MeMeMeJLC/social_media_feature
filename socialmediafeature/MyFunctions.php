@@ -64,8 +64,8 @@
 		displayAnImage($result);
 	}
 	
-	function addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocation){
-		$sql = "insert into annotation (annotation_comment, annotation_location, userID_fk, image_id_fk) values ('$theComment', $theAnnotationLocation, $theUserID, $theImageID)";
+	function addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocationX,  $theAnnotationLocationY){
+		$sql = "insert into annotation (annotation_comment, annotation_location_x, annotation_location_y, userID_fk, image_id_fk) values ('$theComment', $theAnnotationLocationX,$theAnnotationLocationY, $theUserID, $theImageID)";
 		$result = $db->query($sql);
 		echo "added new comment";
 		$sql = "select * from annotation where image_id_fk='$theImageID'";
@@ -120,12 +120,13 @@
 	}
 	
 	function displayAnnotations($annotations){
-		echo "<table border=1><tr><td>Annotation ID</td> <td>Annotation Comment</td> <td>Annotation Location</td> <td>User ID</td> <td>Image ID</td></tr>";
+		echo "<table border=1><tr><td>Annotation ID</td> <td>Annotation Comment</td> <td>Annotation Location X</td><td>Annotation Location Y</td> <td>User ID</td> <td>Image ID</td></tr>";
 		while ( $aRow =  $annotations->fetch() )
 		{
 			$outputLine = "<tr><td>$aRow[annotation_id]</td>";
 			$outputLine .= "<td>$aRow[annotation_comment]</td>";
-			$outputLine .= "<td>$aRow[annotation_location]</td>";
+			$outputLine .= "<td>$aRow[annotation_location_x]</td>";
+			$outputLine .= "<td>$aRow[annotation_location_y]</td>";
 			$outputLine .= "<td>$aRow[userID_fk]</td>";
 			$outputLine .= "<td>$aRow[image_id_fk]</td></tr>";
 			echo $outputLine;
