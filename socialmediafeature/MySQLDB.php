@@ -33,7 +33,7 @@ class MySQL
        }
        else
        {
-            echo "connected to server <br />";
+            //echo "connected to server <br />";
        }
        
   }
@@ -47,7 +47,7 @@ class MySQL
            }
            else
            {
-				echo "$this->dbName  database selected <br />";
+				//echo "$this->dbName  database selected <br />";
            }
       }
      

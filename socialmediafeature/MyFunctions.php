@@ -26,6 +26,13 @@
 		return $result;	
 	}
 	
+	function getImageLocation($db, $theImageID){
+		$sql = "select image_location from image where image_ID=$theImageID";
+		$result = $db->query($sql);
+		
+		return "105.png"/*$result*/;
+	}
+	
 	function getImages($db){
 		$sql = "select * from image";
 		$result = $db->query($sql);
@@ -36,7 +43,8 @@
 	function getImageAnnotations($db, $theImageID){
 		$sql = "select * from annotation where image_id_fk = $theImageID";
 		$result = $db->query($sql);
-		displayAnnotations($result);
+		//displayAnnotations($result);
+		displayAnnotationsImages($result);
 	}
 	
 	function getAnnotations($db){
@@ -118,6 +126,11 @@
 		}
 		echo "</table>";
 	}
+
+	function displayAnnotationsImages($annotations){
+		while ($aRow = $annotations->fetch()){
+			echo "<image id='resources/icon.png' src='resources/icon.png' style='position:fixed; margin-left:100px; margin-top:120px;'></image>";}
+	}
 	
 	function displayAnnotations($annotations){
 		echo "<table border=1><tr><td>Annotation ID</td> <td>Annotation Comment</td> <td>Annotation Location X</td><td>Annotation Location Y</td> <td>User ID</td> <td>Image ID</td></tr>";
@@ -131,11 +144,7 @@
 			$outputLine .= "<td>$aRow[image_id_fk]</td></tr>";
 			echo $outputLine;
 		}
-		echo "</table>";
-		
-		
-		
-		
+		echo "</table>";	
 	}
 ?>	
 <html>	
