@@ -3,7 +3,7 @@
 <br><br>
 	<form method='post' action='annotate.php'>
 	Add an annotation: <input type='text' name='comment'></input><br>
-	<input type='text' id='annotationLocation' name='annotationLocation' value=''></input>
+	<input type='hidden' id='annotationLocation' name='annotationLocation' value=''></input>
 	<input type='submit'></input>
 </form>
 
