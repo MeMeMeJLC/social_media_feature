@@ -48,6 +48,9 @@ if(isset($_POST['comment']) /*and ($_POST['annotationLocationX']) and ($_POST['a
 <html>
 <body>
 <image id="image" src=''></image>
+<br>
+<div id="txtHint"><b>Comment will be here...</b></div>
+
 <form method='post' action='annotate.php'>
 	Add an annotation:<br> <input type='text' name='comment'></input><br>Then click the location on the image.
 	<input type='hidden' id='annotationLocationX' name='annotationLocationX' value=''></input>

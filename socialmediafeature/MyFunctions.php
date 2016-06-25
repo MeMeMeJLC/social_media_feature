@@ -1,15 +1,8 @@
-<script>
-	function displayAnnotationInATable(annotationID){
-		console.log("annotation"+annotationID+"clicked");
-	}
-</script>
+
+
 
 <?php
 
-
-	function run() {
-		echo "MyFunctions runs here<br>";
-	}
 	
 	function getAUser($db, $theUserID){
 		$sql = "select * from user where userID='$theUserID'";
@@ -59,6 +52,7 @@
 		echo "<br />there were " . $result->size() . " rows <br />";
 		return $result;	
 	}
+	
 	
 	function addAUser($db, $theFirstName, $theLastName){
 		$sql = "insert into user (firstName, lastName) values ('$theFirstName', '$theLastName')";
@@ -138,14 +132,16 @@
 			$x = $aRow['annotation_location_x']."px";
 			$y = $aRow['annotation_location_y']."px";
 			$id = $aRow['annotation_id'];
+			$comment = $aRow['annotation_comment'];
+			;$_POST['commentForDisplay'] = $comment; 
+			
 
-		echo "<image id='$id' src='resources/icon.png' style='position:fixed; margin-left:$x; margin-top:$y;' onclick='displayAnnotationInATable($id)'></image>";
-		}			
+		/*echo "<image id='$id' src='resources/icon.png' style='position:fixed; margin-left:$x; margin-top:$y;' onclick='displayAnnotationInATable($id)'></image>";*/
+		echo "<image id='$id' src='resources/icon.png' style='position:fixed; margin-left:$x; margin-top:$y;' onclick='showUser($id)'></image>";
+		}				
 	}
-	
-	function displayAnnotationInATable($annotation){
-		echo "<table border=2><tr>display annotation here</tr><tr><td></td></tr>";
-	}
+
+
 	
 	function displayAnnotations($annotations){
 		echo "<table border=1><tr><td>Annotation ID</td> <td>Annotation Comment</td> <td>Annotation Location X</td><td>Annotation Location Y</td> <td>User ID</td> <td>Image ID</td></tr>";
@@ -162,7 +158,49 @@
 		echo "</table>";	
 	}
 ?>	
-<html>	
+<script>
+function showUser(str) {
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getuser.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
 
-
-</html>
+	function displayAnnotationInATable(id){
+		console.log("javascript running " + id);
+		if (id == ""){
+			console.log("if");
+			document.getElementById("anno").innerHTML = "empty";
+			return;
+		} else {
+			console.log("else");
+			if (window.XMLHttpRequest){
+				console.log("else-if")
+				xmlhttp = new XMLHttpRequest();
+			}
+			xmlhttp.onreadystatechange = function(){
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+					console.log("else-if-if");
+					document.getElementById("anno"),innerHTML = xmlhttp.responseText;
+				}
+			};
+			xmlhttp.open("GET","showcomment.php?thing="+id,true);
+			xmlhttp.send();
+		}
+	}
+</script>
