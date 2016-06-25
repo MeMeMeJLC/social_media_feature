@@ -50,7 +50,7 @@
 		$sql = "insert into user (firstName, lastName) values ('$theFirstName', '$theLastName')";
 		$result = $db->query($sql);
 		echo "<br>added new user<br>";
-		$sql = "select * from user where lastName='$theLastName'";
+		$sql = "select * from user where lastName='$theLastName' and firstName='$theFirstName'";
 		$result = $db->query($sql);
 		displayAUser($result);
 	}
@@ -132,6 +132,8 @@
 			echo $outputLine;
 		}
 		echo "</table>";
+		
+		
 	}
 ?>	
 <html>	
