@@ -1,3 +1,9 @@
+<script>
+	function displayAnnotationInATable(annotationID){
+		console.log("annotation"+annotationID+"clicked");
+	}
+</script>
+
 <?php
 
 
@@ -131,8 +137,14 @@
 		while ($aRow = $annotations->fetch()){
 			$x = $aRow['annotation_location_x']."px";
 			$y = $aRow['annotation_location_y']."px";
+			$id = $aRow['annotation_id'];
 
-			echo "<image id='icon' src='resources/icon.png' style='position:fixed; margin-left:$x; margin-top:$y;'></image>";}
+		echo "<image id='$id' src='resources/icon.png' style='position:fixed; margin-left:$x; margin-top:$y;' onclick='displayAnnotationInATable($id)'></image>";
+		}			
+	}
+	
+	function displayAnnotationInATable($annotation){
+		echo "<table border=2><tr>display annotation here</tr><tr><td></td></tr>";
 	}
 	
 	function displayAnnotations($annotations){
