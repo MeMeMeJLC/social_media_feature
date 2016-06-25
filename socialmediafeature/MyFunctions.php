@@ -129,7 +129,10 @@
 
 	function displayAnnotationsImages($annotations){
 		while ($aRow = $annotations->fetch()){
-			echo "<image id='resources/icon.png' src='resources/icon.png' style='position:fixed; margin-left:100px; margin-top:120px;'></image>";}
+			$x = $aRow['annotation_location_x']."px";
+			$y = $aRow['annotation_location_y']."px";
+
+			echo "<image id='icon' src='resources/icon.png' style='position:fixed; margin-left:$x; margin-top:$y;'></image>";}
 	}
 	
 	function displayAnnotations($annotations){

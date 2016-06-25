@@ -4,7 +4,9 @@ function getAnAnnotationLocation(){
 		var x = event.clientX;
 		var y = event.clientY;
 		document.getElementById('annotationLocationX').value = x;
-		document.getElementById('annotationLocationY').value = y;		
+		document.getElementById('annotationLocationY').value = y;	
+console.log(x);
+console.log(y);		
 	}	
 	
 </script>
@@ -26,12 +28,13 @@ $image = getAnImage($db, $theImageID);
 $imageLocation = getImageLocation($db, $theImageID);
 #echo "$imageLocation";
 getImageAnnotations($db, $theImageID);
-echo "<image src='resources/images/$imageLocation'></image>";	
+echo "<image onclick=getAnAnnotationLocation(event) src='resources/images/$imageLocation'></image>";	
 //displayAnImage($image);
 //$theAnnotationLocation = displayAnImageToAnnotate($image);
 
 
-if(isset($_POST['comment']) and ($_POST['annotationLocationX']) and ($_POST['annotationLocationY'])){
+if(isset($_POST['comment']) /*and ($_POST['annotationLocationX']) and ($_POST['annotationLocationY'])*/){
+	echo "running";
 	$theComment = $_POST['comment'];
 	$theAnnotationLocationX = " ".$_POST['annotationLocationX'];
 	$theAnnotationLocationY = " ".$_POST['annotationLocationY']." ";
@@ -42,8 +45,6 @@ if(isset($_POST['comment']) and ($_POST['annotationLocationX']) and ($_POST['ann
 
 
 ?>
-
-
 <html>
 <body>
 <image id="image" src=''></image>
@@ -58,3 +59,5 @@ if(isset($_POST['comment']) and ($_POST['annotationLocationX']) and ($_POST['ann
 <br><a href="main.php">Return to Main Page</a>
 </body>
 </html>
+
+
