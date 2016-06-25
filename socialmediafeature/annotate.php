@@ -6,7 +6,7 @@
 	<input type='hidden' id='annotationLocationY' name='annotationLocationY' value=''></input>
 	<input type='submit'></input>
 </form>
-
+<image id="noteMark" src="resources/icon.png" style="position:fixed; margin-left: 23px; margin-top:190px;"></image>
 <h1 id="annotationLocation"></h1>
 <a href="profile.php">Return to user profile</a>
 <a href="main.php">Return to Main Page</a>
