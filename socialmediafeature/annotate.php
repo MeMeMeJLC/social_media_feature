@@ -12,7 +12,7 @@ console.log(y);
 </script>
 <?php
 require_once("MyFunctions.php");
-include_once "MYSQLDB.php";
+require_once("MYSQLDB.php");
 $host = 'localhost' ;
 $dbUser = 'root' ;
 $dbPass = '' ;
@@ -35,13 +35,13 @@ echo "<image onclick=getAnAnnotationLocation(event) src='resources/images/$image
 
 if(isset($_POST['comment']) /*and ($_POST['annotationLocationX']) and ($_POST['annotationLocationY'])*/){
 	echo "running";
-	$theComment = $_POST['comment'];
+	$theComment = htmlentities($_POST['comment']);#xss attack proof
+	#$theComment = mysqli_real_escape_string($db->query($theComment), $theComment); #sql injection prevention
 	$theAnnotationLocationX = " ".$_POST['annotationLocationX'];
 	$theAnnotationLocationY = " ".$_POST['annotationLocationY']." ";
 	addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocationX, $theAnnotationLocationY);
-	header("Refresh:0");
+	#header("Refresh:0");
 }
-
 
 
 ?>

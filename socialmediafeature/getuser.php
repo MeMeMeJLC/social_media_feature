@@ -37,15 +37,19 @@ $db = new MySQL( $host, $dbUser , $dbPass , $dbName );
 $db->selectDatabase();
 
 
-$sql="SELECT annotation_comment FROM annotation WHERE annotation_id = '".$q."'";
+$sql="SELECT * FROM annotation WHERE annotation_id = '".$q."'";
 $result = $db->query($sql);
 
 echo "<table>
 <tr>
-<th>Annotation</th>
+<th>Comment ID</th>
+<th>User ID</th>
+<th>Comment</th>
 </tr>";
 while($row = $result->fetch()) {
     echo "<tr>";
+	echo "<td>" . $row['annotation_id'] . "</td>";
+	echo "<td>" . $row['userID_fk'] . "</td>";
     echo "<td>" . $row['annotation_comment'] . "</td>";
 
     echo "</tr>";

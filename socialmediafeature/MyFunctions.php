@@ -71,8 +71,15 @@
 		$result = $db->query($sql);
 		displayAnImage($result);
 	}
-	
+
 	function addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocationX,  $theAnnotationLocationY){
+		$host = 'localhost' ;
+$dbUser = 'root' ;
+$dbPass = '' ;
+$dbName = 'image_annotator';
+		$theComment = htmlentities($theComment);#xss attack proof
+		$theComment = mysqli_real_escape_string(mysqli_connect( $host, $dbUser , $dbPass , $dbName ) ,$theComment); #sql injection prevention, need to fix mysql class to be mysqli , doesnt work with $db or MYSL class
+		
 		$sql = "insert into annotation (annotation_comment, annotation_location_x, annotation_location_y, userID_fk, image_id_fk) values ('$theComment', $theAnnotationLocationX,$theAnnotationLocationY, $theUserID, $theImageID)";
 		$result = $db->query($sql);
 		echo "added new comment";
@@ -157,6 +164,7 @@
 		}
 		echo "</table>";	
 	}
+	
 ?>	
 <script>
 function showUser(str) {
