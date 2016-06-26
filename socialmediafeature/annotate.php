@@ -13,6 +13,7 @@ console.log(y);
 <?php
 require_once("MyFunctions.php");
 require_once("MYSQLDB.php");
+require_once("Token.php");
 $host = 'localhost' ;
 $dbUser = 'root' ;
 $dbPass = '' ;
@@ -33,6 +34,18 @@ echo "<image onclick=getAnAnnotationLocation(event) src='resources/images/$image
 //$theAnnotationLocation = displayAnImageToAnnotate($image);
 
 
+if(isset($_POST['comment'], $_POST['annotationLocationX'], $_POST['annotationLocationY'])){ #prevent xsrf 
+		$comment = $_POST['comment'];
+		$locationX = $_POST['annotationLocationX'];
+		$locationY = $_POST['annotationLocationY'];
+		
+		if(!empty($comment) && !empty($locationX) && !empty($locationY)){
+			if(Token::check($_POST['token'])){
+			echo '<h1>Processed note!</h1>';
+			}
+		}
+	}
+
 if(isset($_POST['comment']) /*and ($_POST['annotationLocationX']) and ($_POST['annotationLocationY'])*/){
 	echo "running";
 	$theComment = htmlentities($_POST['comment']);#xss attack proof
@@ -40,7 +53,7 @@ if(isset($_POST['comment']) /*and ($_POST['annotationLocationX']) and ($_POST['a
 	$theAnnotationLocationX = " ".$_POST['annotationLocationX'];
 	$theAnnotationLocationY = " ".$_POST['annotationLocationY']." ";
 	addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocationX, $theAnnotationLocationY);
-	#header("Refresh:0");
+	header("Refresh:0");
 }
 
 
@@ -55,6 +68,7 @@ if(isset($_POST['comment']) /*and ($_POST['annotationLocationX']) and ($_POST['a
 	Add an annotation:<br> <input type='text' name='comment'></input><br>Then click the location on the image.
 	<input type='hidden' id='annotationLocationX' name='annotationLocationX' value=''></input>
 	<input type='hidden' id='annotationLocationY' name='annotationLocationY' value=''></input>
+	<input type="hidden" name="token" value="<?php echo Token::generate(); ?>"></input>
 	<br><input type='submit'></input>
 </form>
 <h1 id="annotationLocation"></h1>
