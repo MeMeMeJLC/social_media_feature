@@ -9,42 +9,41 @@ $db = new MySQL( $host, $dbUser , $dbPass , $dbName ) ;
 $db->selectDatabase();
 
 echo "Login";
-function isValidForm ( $theUserID  ) 
-{
-    $result = true;
-    if ( $theUserID == ""  )
-    {
-       $result = false;
-       print "Please enter a word or words for your search";
-    }
-return $result;
-}
 
-if($_SERVER['REQUEST_METHOD'] == "POST")
-{
-    // grab the variables from the form
-    $theUserID = $_POST["theUserID"];
-    //echo $theWords;
-    if ( isValidForm ( $theUserID )  )
-    {
-       // specify where to save the session variables
+if(isset($_POST["theUserName"], $_POST["thePassword"])){
+		$theUserName = $_POST["theUserName"];
+		$thePassword = $_POST["thePassword"];
+	    $stored_password = getAUserNameAndPassword($db, $theUserName);
+		echo $thePassword." ".$stored_password;
+		
+		if(password_verify( $thePassword, $stored_password)){
+			echo "<br>you are in!";
+			       // specify where to save the session variables
         //session_save_path("./");
         session_start();
       // register the session variables and load the next page
-        $_SESSION['theUserID'] = $theUserID ;
+        $_SESSION['theUserName'] = $theUserName;
+		$_SESSION['thePassword'] = $thePassword;
 		sleep(1);
         header ("Location:profile.php") ;
 		exit;
 		//echo "<br> session id ".$_SESSION['theUserID'];
 		/*$user = getAUser($db,$theUserID);
 		displayAUser($user);*/
-    }
-}  
+   
+		} else{
+			echo "<br>not valid login info";
+		}	
+} else {
+	echo "<br>Please enter username and password";
+}
+ 
 ?>
 
 <form action="login.php" method="post">
-	<input type="text" name="theUserID">
-	<button type="submit" value="Search for user">Login User In</button>
+	Enter User Name:<input type="text" name="theUserName"><br>
+	Enter Password:<input type="text" name="thePassword"><br>
+	<button type="submit" name="Login">Login User In</button>
 </form>
 <a href="registerNewUser.php">Register new user<a>
 

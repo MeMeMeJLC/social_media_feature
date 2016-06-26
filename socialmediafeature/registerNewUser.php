@@ -1,3 +1,17 @@
+<html>
+<form action="registerNewUser.php" method="post">
+	First name:<input type="text" name="theFirstName"><br>
+	Last Name:<input type="text" name="theLastName"><br>
+	User name:<input type="text" name="theUserName"><br>
+	Password:<input type="text"  name="thePassword"><br>
+	<button type="submit">Register new user</button>
+</form>
+
+<br /><br />
+<a href="main.php">Return To Main Form</a>
+
+</html>
+
 <?php
 require_once("MyFunctions.php");
 include_once "MYSQLDB.php";
@@ -9,47 +23,26 @@ $db = new MySQL( $host, $dbUser , $dbPass , $dbName ) ;
 $db->selectDatabase();
 
 echo "<h2>register new user</h2>";
-function isValidForm ( $theFirstName, $theLastName  ) 
-{
-    $result = true;
-    if ( $theFirstName == "" or $theLastName == "" )
-    {
-       $result = false;
-       print "Please enter a first name and last name";
-    }
-return $result;
-}
+
+	if(isset(/*$_POST["thefirstName"],$_POST["theLastName"],*/$_POST["theUserName"], $_POST["thePassword"])){
+		$theUserName = $_POST["theUserName"];
+		$thePassword = $_POST["thePassword"];
+		$theFirstName = $_POST["theFirstName"];
+		$theLastName = $_POST["theLastName"];
+		$hashed = password_hash($thePassword, PASSWORD_BCRYPT, array('cost' => 12));
+		echo "$theUserName, $thePassword, $theFirstName, $theLastName";
+		addAUser($db,$theUserName, $hashed ,$theFirstName, $theLastName);
 
 
-if($_SERVER['REQUEST_METHOD'] == "POST")
-{
-    // grab the variables from the form
-    $theFirstName = $_POST["theFirstName"];
-    $theLastName = $_POST["theLastName"];
-    
-    if ( isValidForm ( $theFirstName, $theLastName )  )
-    {
-       // specify where to save the session variables
-        session_save_path("./");
-        session_start();
-      // register the session variables and load the next page
-        $_SESSION["theFirstName"] = $theFirstName ;
-        $_SESSION["theLastName"] = $theLastName ;
-        /*header ("Location:searchProductsA.php")*/ ;
-		$user = addAUser($db,$theFirstName, $theLastName);
-    }
-} 
+		sleep(3);
+        header ("Location:login.php") ;
+		exit;
+
+   
+		} else {
+	echo "<br>Please enter firstname, lastname, username and password";
+}	
+
 
 
 ?>
-<html>
-<form action="registerNewUser.php" method="post">
-	<input type="text" value="First Name" name="theFirstName"><br><br>
-	<input type="text" value="Last Name" name="theLastName"><br><br>
-	<button type="submit" value="Search for user">Register new user</button>
-</form>
-
-<br /><br />
-<a href="main.php">Return To Main Form</a>
-
-</html>

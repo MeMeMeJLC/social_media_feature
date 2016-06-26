@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(isset($_SESSION['theUserID'])){
-	echo "User ID is " . $_SESSION['theUserID'];
+if(isset($_SESSION['theUserName'])){
+	echo "welcome, " . $_SESSION['theUserName'];
 }
 else {
 	echo "session data not set";

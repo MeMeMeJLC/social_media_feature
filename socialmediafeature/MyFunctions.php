@@ -4,11 +4,19 @@
 <?php
 
 	
+	
 	function getAUser($db, $theUserID){
 		$sql = "select * from user where userID='$theUserID'";
 		$result = $db->query($sql); 
 		echo "<br />there were ". $result->size() ."rows <br />";
 		return $result;	
+	}
+	
+	function getAUserNameAndPassword($db, $theUserName){
+		$sql = "select * from user where userName='$theUserName'";
+		$result = $db->query($sql); 
+		$aRow =  $result->fetch();
+		return "$aRow[password]";
 	}
 	
 	function getusers($db){
@@ -54,11 +62,12 @@
 	}
 	
 	
-	function addAUser($db, $theFirstName, $theLastName){
-		$sql = "insert into user (firstName, lastName) values ('$theFirstName', '$theLastName')";
+	function addAUser($db, $theUserName, $thePassword, $theFirstName, $theLastName){
+		echo "add a user";
+		$sql = "insert into user (userName, password, firstName, lastName) values ('$theUserName', '$thePassword', '$theFirstName', '$theLastName')";
 		$result = $db->query($sql);
 		echo "<br>added new user<br>";
-		$sql = "select * from user where lastName='$theLastName' and firstName='$theFirstName'";
+		$sql = "select * from user where userName='$theUserName'";
 		$result = $db->query($sql);
 		displayAUser($result);
 	}
@@ -88,10 +97,12 @@ $dbName = 'image_annotator';
 	}
 	
 	function displayusers($users){
-		echo "<table border=1><tr><td>user ID</td><td>First Name</td><td>Last Name</td></tr>";
+		echo "<table border=1><tr><td>user ID</td><td>username</td><td>password</td><td>First Name</td><td>Last Name</td></tr>";
 		while ( $aRow =  $users->fetch() )
 		{
 			$outputLine = "<tr><td>$aRow[userID]</td>";
+			$outputLine .= "<td>$aRow[userName]</td>";
+			$outputLine .= "<td>$aRow[password]</td>";
 			$outputLine .= "<td>$aRow[firstName]</td>";
 			$outputLine .= "<td>$aRow[lastName]</td>
 			</tr>";
@@ -101,9 +112,11 @@ $dbName = 'image_annotator';
 	}
 	
 	function displayAUser($user){
-		echo "<table border=1><tr><td>user ID</td><td>first name</td><td>last name</td></tr>";
+		echo "<table border=1><tr><td>user ID</td><td>user name</td><td>password</td><td>first name</td><td>last name</td></tr>";
 		$aRow = $user->fetch();
 		$outputLine = "<tr><td>$aRow[userID]</td>";
+		$outputLine .= "<td>$aRow[userName]</td>";
+		$outputLine = "<tr><td>$aRow[password]</td>";
 		$outputLine .= "<td>$aRow[firstName]</td>";
 		$outputLine .= "<td>$aRow[lastName]</td></tr>";
 		echo $outputLine."</table><br>";

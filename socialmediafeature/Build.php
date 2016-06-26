@@ -24,9 +24,12 @@ $sql = "drop table favourite";
 $result = $db->query($sql);*/
 
 /*create user table*/
-$sql = "create table user (userID int not null auto_increment, 
+$sql = "create table user (userID int not null auto_increment,
+	userName varchar(30) not null,
+	password varchar(90) not null,
 	firstName varchar(30) not null,
 	lastName varchar(30) not null,
+	UNIQUE (userName),
 	primary key(userID))";
 $result = $db->query($sql);
 
@@ -49,9 +52,9 @@ $sql = "create table annotation(annotation_id int not null auto_increment,
 $result = $db->query($sql);
 
 /*insert user test data*/
-$sql  = "insert into user(firstName, lastName) values ('Jeremy', 'Cook')";
+$sql  = "insert into user(userName, password, firstName, lastName) values ('jcook', 'password1', 'Jeremy', 'Cook')";
 $result = $db->query($sql);
-$sql  = "insert into user(firstname, lastName) values ('Bill', 'Hicks')";
+$sql  = "insert into user(userName, password, firstname, lastName) values ('bhicks', 'password2', 'Bill', 'Hicks')";
 $result = $db->query($sql);
 
 /*insert image test data*/
