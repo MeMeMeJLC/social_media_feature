@@ -33,6 +33,7 @@ mysqli_select_db($con,"ajax_demo");*/
 
 require_once 'MySQLDB.php';
 require_once 'myFunctions.php';
+require_once 'changeAnno.php';
 $host = 'localhost';
 $dbUser = 'root';
 $dbPass = '';
@@ -62,6 +63,7 @@ if(isset($_SESSION["theUserName"], $_SESSION["thePassword"])){
 			</tr>";
 
 			$row = $result->fetch();
+			$theAnnotationID = $row['annotation_id'];
 				$annoUser = getAUser($db, $row['userID_fk']);
 				$annoUser = $annoUser->fetch();
 				$annoUserName = $annoUser['userName'];
@@ -69,13 +71,16 @@ if(isset($_SESSION["theUserName"], $_SESSION["thePassword"])){
 				echo "<td>" . $row['annotation_id'] . "</td>";
 				echo "<td>" . $annoUserName . "</td>";
 				echo "<td>" . $row['annotation_comment'] . "</td>";
-				echo "<td id='modify'><form method='post' id='modify'>
-				New comment:<input type='text' name ='newComment'></input>
-				<br><input type='submit'></button>
+				echo "<td id='modify'><form method='post' id='modify' action='changeAnno.php'>
+				New comment:<input type='text' name='newComment'></input>
+				<br>
+				<input type='hidden' name='annotationID' value='$theAnnotationID'></input><input type='submit'></button>
 				</form></td>";
 
 
 				echo "annoUserName = " . $annoUserName . ", username = " . $theUserName;
+				
+				#echo "theannotationid = $theAnnotationID";
 				
 				echo "</tr>";
 
@@ -86,10 +91,7 @@ if(isset($_SESSION["theUserName"], $_SESSION["thePassword"])){
 	if($theUserName == $annoUserName){
 				echo "username match";
 			echo "<style>#modify {display: block;}</style>";
-			if (isset($_POST['newComment'])){
-				$newComment = $_POST['newComment'];
-				updateAnnotation($db, $annotationID, $newComment);
-			}
+
 		}
 }
 }

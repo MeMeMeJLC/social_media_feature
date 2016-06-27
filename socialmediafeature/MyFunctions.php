@@ -185,6 +185,13 @@ $dbName = 'image_annotator';
 		echo "</table>";	
 	}
 	
+	function updateAnnotation($db, $theAnnotationID, $theNewComment){
+		$sql = "update annotation set annotation_comment='$theNewComment' where annotation_id=$theAnnotationID";
+		$result = $db->query($sql);
+		echo "annotation $theAnnotationID changed";
+		
+	}
+	
 ?>	
 <script>
 function showUser(str) {
