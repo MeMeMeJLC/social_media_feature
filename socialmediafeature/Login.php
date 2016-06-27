@@ -14,16 +14,20 @@ if(isset($_POST["theUserName"], $_POST["thePassword"])){
 		$theUserName = $_POST["theUserName"];
 		$thePassword = $_POST["thePassword"];
 	    $stored_password = getAUserNameAndPassword($db, $theUserName);
-		echo $thePassword." ".$stored_password;
+		#echo $thePassword." ".$stored_password;
 		
 		if(password_verify( $thePassword, $stored_password)){
 			echo "<br>you are in!";
+			$theUserID = getAUserID($db, $theUserName);
+			#echo " The userID = $theUserID";
 			       // specify where to save the session variables
         //session_save_path("./");
+		echo "<script>window.alert($theUserID)</script>";
         session_start();
       // register the session variables and load the next page
         $_SESSION['theUserName'] = $theUserName;
 		$_SESSION['thePassword'] = $thePassword;
+		$_SESSION['theUserID'] = $theUserID;
 		sleep(1);
         header ("Location:profile.php") ;
 		exit;

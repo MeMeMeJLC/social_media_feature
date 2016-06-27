@@ -12,6 +12,13 @@
 		return $result;	
 	}
 	
+	function getAUserID($db, $theUserName){
+		$sql = "select * from user where userName='$theUserName'";
+		$result = $db->query($sql); 
+		$aRow =  $result->fetch();
+		return "$aRow[userID]";		
+	}
+	
 	function getAUserNameAndPassword($db, $theUserName){
 		$sql = "select * from user where userName='$theUserName'";
 		$result = $db->query($sql); 
@@ -197,12 +204,12 @@ function showUser(str) {
                 document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
             }
         };
-        xmlhttp.open("GET","getuser.php?q="+str,true);
+        xmlhttp.open("GET","getannotation.php?q="+str,true);
         xmlhttp.send();
     }
 }
 
-	function displayAnnotationInATable(id){
+	/*function displayAnnotationInATable(id){
 		console.log("javascript running " + id);
 		if (id == ""){
 			console.log("if");
@@ -223,5 +230,5 @@ function showUser(str) {
 			xmlhttp.open("GET","showcomment.php?thing="+id,true);
 			xmlhttp.send();
 		}
-	}
+	}*/
 </script>

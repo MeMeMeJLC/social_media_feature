@@ -24,6 +24,7 @@ session_start();
 
 $theImageID = $_SESSION['theImageID'];
 $theUserID = $_SESSION['theUserID'];
+#echo "userid = " . $theUserID."<br>";
 $image = getAnImage($db, $theImageID);
 
 $imageLocation = getImageLocation($db, $theImageID);
@@ -42,18 +43,22 @@ if(isset($_POST['comment'], $_POST['annotationLocationX'], $_POST['annotationLoc
 		if(!empty($comment) && !empty($locationX) && !empty($locationY)){
 			if(Token::check($_POST['token'])){
 			echo '<h1>Processed note!</h1>';
+				$theAnnotationLocationX = " ".$_POST['annotationLocationX'];
+	$theAnnotationLocationY = " ".$_POST['annotationLocationY']." ";
+	addAnAnnotation($db, $theImageID, $theUserID, $comment, $theAnnotationLocationX, $theAnnotationLocationY);
+	header("Refresh:0");
 			}
 		}
 	}
 
-if(isset($_POST['comment']) /*and ($_POST['annotationLocationX']) and ($_POST['annotationLocationY'])*/){
+if(isset($_POST['comment']) and ($_POST['annotationLocationX']) and ($_POST['annotationLocationY'])){
 	echo "running";
 	$theComment = htmlentities($_POST['comment']);#xss attack proof
 	#$theComment = mysqli_real_escape_string($db->query($theComment), $theComment); #sql injection prevention
-	$theAnnotationLocationX = " ".$_POST['annotationLocationX'];
+	/*$theAnnotationLocationX = " ".$_POST['annotationLocationX'];
 	$theAnnotationLocationY = " ".$_POST['annotationLocationY']." ";
 	addAnAnnotation($db, $theImageID, $theUserID, $theComment, $theAnnotationLocationX, $theAnnotationLocationY);
-	header("Refresh:0");
+	header("Refresh:0");*/
 }
 
 
